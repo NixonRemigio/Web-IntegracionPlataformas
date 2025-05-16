@@ -6,12 +6,12 @@
     box-sizing: border-box;
 
 }
-body{
+body {
     max-width: 1200px;
+    margin: 0 auto;
     font-family: Arial, Helvetica, sans-serif;
     color: #333;
-
-
+    padding: 20px;
 }
 .icon-cart{
     width: 40px;
@@ -26,7 +26,7 @@ img{
 header{
     display: flex;
     justify-content: space-between;
-    padding: 30px,0 40px 0;
+    padding: 30px 0 40px 0;
 }
 
 .container-icon{
@@ -124,3 +124,8 @@ header{
 .items:hover img{
     transform: scale(1.2);
 }
+
+.hidden-cart {
+    display: none;
+}
+
