@@ -1,80 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-
-    <title>AutoParts</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoParts</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <h1>Tienda</h1>
-
-        <div class="container-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-cart">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-          </svg>
-          <div class="count-product">
-            <span id="contador-productos">0</span>
-          </div>
-          <div class="container-cart-product hidden-cart">
-            <div class="cart-product">
-                <div class="info-cart-product">
-                    <span class="cantidad-producto-carrito">1</span>
-                    <p class="titulo-producto-carrito">neumaticos</p>
-                    <span class="precio-producto-carrito">80</span>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-close">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                  </svg>
-                  </div>
-                  
-            </div>
-            <div class="cart-total">
-                <h3>total</h3>
-                <span class="total-pagar">$2.000</span>
-            </div>
-          </div>
-          </div>
-    </header>
-
-    <div class="container-items">
-        <div class="items">
-            <figure>
-                <img src="https://reducereutilizarecicla.org/web/app/uploads/2018/08/post-neumaticos.png" alt="">
-            </figure>
-            <div class="info-producto">
-                <h2>Neumaticos</h2>
-                <p class="price">$15.000</p>
-                <button>añadir al carrito</button>
-            </div>
-        </div>
-
-        <div class="items">
-            <figure>
-                <img src="https://images.implementos.cl/img/1000/MARLAT0881-2.jpg" alt="">
-            </figure>
-            <div class="info-producto">
-                <h2>Manilla Exterior</h2>
-                <p class="price">$15.000</p>
-                <button>añadir al carrito</button>
-            </div>
-        </div>
-
-        <div class="items">
-            <figure>
-                <img src="https://http2.mlstatic.com/D_NQ_NP_656053-MLC76831028488_062024-O-tapa-rueda-aro-14-plateada-universal-calidad.webp" alt="">
-            </figure>
-            <div class="info-producto">
-                <h2></h2>
-                <p class="price">$15.000</p>
-                <button>añadir al carrito</button>
-            </div>
-        </div>
-
-
-
+  <header>
+    <h1>AutoParts</h1>
+    <div class="user-type">
+      <label for="userSelect">Tipo de usuario:</label>
+      <select id="userSelect">
+        <option value="b2c">Cliente Minorista (B2C)</option>
+        <option value="b2b">Distribuidor (B2B)</option>
+      </select>
     </div>
+    <div class="container-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+        stroke-width="1.5" stroke="currentColor" class="icon-cart">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+      </svg>
+      <div class="count-products">
+        <span id="contador-productos">0</span>
+      </div>
+      <div class="container-cart-products hidden-cart">
+        <div class="cart-total">
+          <h3>Total</h3>
+          <span class="total-pagar">$0</span>
+          <button id="pagar">Proceder al Pago</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-items">
+    <div class="items" data-nombre="Neumáticos" data-precio-b2c="15000" data-precio-b2b="12000">
+      <figure>
+        <img src="https://reducereutilizarecicla.org/web/app/uploads/2018/08/post-neumaticos.png" alt="Neumáticos" />
+      </figure>
+      <div class="info-producto">
+        <h2>Neumáticos</h2>
+        <p class="price">$15.000</p>
+        <button>Añadir al carrito</button>
+      </div>
+    </div>
+
+    <div class="items" data-nombre="Manilla Exterior" data-precio-b2c="15000" data-precio-b2b="11000">
+      <figure>
+        <img src="https://images.implementos.cl/img/1000/MARLAT0881-2.jpg" alt="Manilla Exterior" />
+      </figure>
+      <div class="info-producto">
+        <h2>Manilla Exterior</h2>
+        <p class="price">$15.000</p>
+        <button>Añadir al carrito</button>
+      </div>
+    </div>
+
+    <div class="items" data-nombre="Tapa de Rueda" data-precio-b2c="15000" data-precio-b2b="10000">
+      <figure>
+        <img src="https://http2.mlstatic.com/D_NQ_NP_656053-MLC76831028488_062024-O-tapa-rueda-aro-14-plateada-universal-calidad.webp" alt="Tapa Rueda" />
+      </figure>
+      <div class="info-producto">
+        <h2>Tapa de Rueda</h2>
+        <p class="price">$15.000</p>
+        <button>Añadir al carrito</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>
