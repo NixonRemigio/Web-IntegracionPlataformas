@@ -2,73 +2,53 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoParts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tienda de Autopartes</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>AutoParts</h1>
-    <div class="user-type">
-      <label for="userSelect">Tipo de usuario:</label>
-      <select id="userSelect">
-        <option value="b2c">Cliente Minorista (B2C)</option>
-        <option value="b2b">Distribuidor (B2B)</option>
+    <h1>Tienda de Autopartes</h1>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <label for="user-type">Tipo de usuario:</label>
+      <select id="user-type" class="user-type">
+        <option value="b2c">Cliente Final</option>
+        <option value="b2b">Distribuidor / Taller</option>
       </select>
-    </div>
-    <div class="container-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-        stroke-width="1.5" stroke="currentColor" class="icon-cart">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-      </svg>
-      <div class="count-products">
-        <span id="contador-productos">0</span>
-      </div>
-      <div class="container-cart-products hidden-cart">
-        <div class="cart-total">
-          <h3>Total</h3>
-          <span class="total-pagar">$0</span>
-          <button id="pagar">Proceder al Pago</button>
+
+      <div class="container-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          stroke-width="1.5" stroke="currentColor" class="icon-cart">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 
+               14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 
+               2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 
+               14.25L5.106 5.272M6 20.25a.75.75 0 1 1-1.5 
+               0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 
+               1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+        </svg>
+        <div class="count-products" id="contador-productos">0</div>
+
+        <div class="container-cart-products hidden-cart">
+          <div class="cart-products-list">
+            <!-- Productos del carrito -->
+          </div>
+          <div class="cart-empty-message">El carrito está vacío.</div>
+          <div class="cart-total">
+            <h3>Total:</h3>
+            <span class="total-pagar">$0</span>
+          </div>
+          <button class="btn-pagar" disabled>Ir a pagar</button>
         </div>
       </div>
     </div>
   </header>
 
-  <div class="container-items">
-    <div class="items" data-nombre="Neumáticos" data-precio-b2c="15000" data-precio-b2b="12000">
-      <figure>
-        <img src="https://reducereutilizarecicla.org/web/app/uploads/2018/08/post-neumaticos.png" alt="Neumáticos" />
-      </figure>
-      <div class="info-producto">
-        <h2>Neumáticos</h2>
-        <p class="price">$15.000</p>
-        <button>Añadir al carrito</button>
-      </div>
+  <main>
+    <div class="container-items">
+      <!-- Productos renderizados por JS -->
     </div>
-
-    <div class="items" data-nombre="Manilla Exterior" data-precio-b2c="15000" data-precio-b2b="11000">
-      <figure>
-        <img src="https://images.implementos.cl/img/1000/MARLAT0881-2.jpg" alt="Manilla Exterior" />
-      </figure>
-      <div class="info-producto">
-        <h2>Manilla Exterior</h2>
-        <p class="price">$15.000</p>
-        <button>Añadir al carrito</button>
-      </div>
-    </div>
-
-    <div class="items" data-nombre="Tapa de Rueda" data-precio-b2c="15000" data-precio-b2b="10000">
-      <figure>
-        <img src="https://http2.mlstatic.com/D_NQ_NP_656053-MLC76831028488_062024-O-tapa-rueda-aro-14-plateada-universal-calidad.webp" alt="Tapa Rueda" />
-      </figure>
-      <div class="info-producto">
-        <h2>Tapa de Rueda</h2>
-        <p class="price">$15.000</p>
-        <button>Añadir al carrito</button>
-      </div>
-    </div>
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
