@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Tienda de Repuestos Automotrices</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #003366; /* Azul oscuro */
+            padding: 20px 40px; 
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex-wrap: wrap; 
+        }
+        header h1 {
+            margin: 0 0 10px 0; 
+            font-size: 1.8em; 
+            white-space: nowrap;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center; 
+        }
+        nav li {
+            margin-left: 20px; 
+        }
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 1em; 
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #ffcc00; /* Amarillo */
+        }
+        .search-bar {
+            display: flex;
+            margin: 10px 0; 
+        }
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            width: 200px; 
+            font-size: 0.9em;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #ffcc00; /* Amarillo */
+            color: #003366;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+        .search-bar button:hover {
+            background-color: #e5b800; /* Amarillo más oscuro */
+        }
+        .cart-icon-nav {
+            font-size: 1.5em; 
+            color: white;
+            transition: color 0.3s ease;
+            display: flex; 
+            align-items: center;
+            cursor: pointer; 
+        }
+        .cart-icon-nav:hover {
+            color: #ffcc00; /* Amarillo */
+        }
+        #cart-count {
+            font-size: 0.7em; 
+            margin-left: 5px;
+            font-weight: bold;
+        }
+        main {
+            padding: 20px;
+            min-height: calc(100vh - 160px); 
+        }
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+        }
+
+        /* Estilos para las secciones de contenido */
+        .home-section-container, .login-container, .register-container, .profile-container, .products-container, .checkout-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            max-width: 900px; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .home-section-container h2, .login-container h2, .register-container h2, .profile-container h2, .products-container h2, .checkout-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #003366;
+            font-size: 2em; 
+            font-weight: 600;
+        }
+
+        /* Estilos para los formularios */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #003366;
+            font-weight: 600;
+            font-size: 1em;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="url"], 
+        .form-group input[type="tel"]
+         {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="password"]:focus,
+        .form-group input[type="url"]:focus,
+        .form-group input[type="tel"]:focus {
+            outline: none;
+            border-color: #ffcc00; /* Amarillo */
+            box-shadow: 0 0 5px rgba(255,204,0,0.3);
+        }
+        button.form-button { 
+            padding: 12px 25px;
+            background-color: #ffcc00; /* Amarillo */
+            color: #003366;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            display: block;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        button.form-button:hover {
+            background-color: #e5b800; /* Amarillo más oscuro */
+        }
+        .hidden {
+            display: none !important; 
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        /* Estilos para la sección de productos */
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .product-item {
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            background-color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+        }
+        .product-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .product-item img {
+            width: 100%;
+            max-height: 180px; 
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .product-item h3 {
+            font-size: 1.3em; 
+            margin-bottom: 10px;
+            color: #003366;
+            font-weight: 600;
+        }
+        .product-item .product-description { 
+            font-size: 0.95em; 
+            color: #555;
+            margin-bottom: 10px; 
+            line-height: 1.5;
+            flex-grow: 1; 
+        }
+         .product-item .product-price { 
+            font-size: 1.1em;
+            color: #003366;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .product-item button.add-to-cart-btn { 
+            background-color: #ffcc00;
+            color: #003366;
+            padding: 10px; 
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 1em; 
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+            margin-top: auto; 
+        }
+        .product-item button.add-to-cart-btn:hover {
+            background-color: #e5b800;
+        }
+
+        /* Estilos para el perfil */
+        .profile-info-display { 
+            text-align: center; 
+        }
+        .profile-picture-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px auto;
+            border: 3px solid #003366;
+            background-color: #e0e0e0; 
+        }
+        .profile-picture-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #user-info-details p { 
+            font-size: 1.1em;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 10px;
+            text-align: left; 
+        }
+         #user-info-details p strong {
+            color: #003366;
+            min-width: 120px; 
+            display: inline-block;
+        }
+
+        #edit-profile-form {
+            margin-top: 20px;
+        }
+        .profile-actions { 
+            margin-top: 25px;
+            display: flex;
+            gap: 15px; 
+            justify-content: center; 
+        }
+        .profile-actions .form-button {
+            width: auto; 
+            min-width: 150px;
+        }
+
+
+        /* Estilos específicos para el login y registro */
+        #login-section, #register-section {
+            width: 100%; 
+            max-width: 400px; 
+            margin: 50px auto; 
+        }
+        #login-section h2, #register-section h2 {
+            font-size: 1.8em; 
+            margin-bottom: 20px;
+        }
+        #login-form button, #register-form button { 
+            margin-top: 20px; 
+        }
+      
+        /* Toast Message Styles */
+        .toast-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2c3e50; 
+            color: white;
+            padding: 12px 20px; 
+            border-radius: 6px; 
+            box-shadow: 0 3px 7px rgba(0,0,0,0.25);
+            z-index: 1000;
+            font-size: 0.95em;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out, bottom 0.4s ease-in-out;
+        }
+        .toast-message.show { 
+            opacity: 1;
+            visibility: visible;
+            bottom: 30px; 
+        }
+
+        /* Modal del Carrito de Compras y Modal de Agradecimiento */
+        .modal-overlay { 
+            display: none; 
+            position: fixed;
+            z-index: 1050; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.5); 
+        }
+        .modal-content { 
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 25px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px; 
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-header { 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: #003366;
+            font-size: 1.8em;
+        }
+        .close-modal-button { 
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-modal-button:hover,
+        .close-modal-button:focus {
+            color: #333;
+            text-decoration: none;
+        }
+
+        #cart-items-list {
+            list-style: none;
+            padding: 0;
+            max-height: 300px; 
+            overflow-y: auto; 
+        }
+        #cart-items-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        #cart-items-list li:last-child {
+            border-bottom: none;
+        }
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        .cart-item-details span {
+            display: block;
+        }
+        .cart-item-name {
+            font-weight: 600;
+            color: #003366;
+        }
+        .cart-item-price, .cart-item-quantity {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .cart-item-actions button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background-color 0.3s;
+        }
+        .cart-item-actions button:hover {
+            background-color: #c0392b;
+        }
+        .cart-modal-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            text-align: right;
+        }
+        #cart-total {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 15px;
+        }
+        .checkout-button {
+            background-color: #2ecc71; /* Verde */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .checkout-button:hover {
+            background-color: #27ae60;
+        }
+        .empty-cart-message {
+            text-align: center;
+            color: #777;
+            font-size: 1.1em;
+            padding: 20px 0;
+        }
+
+        /* Thank You Modal Specific Styles */
+        #thank-you-modal .modal-content {
+            max-width: 550px; 
+        }
+        #thank-you-modal-purchased-items {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        #thank-you-modal-purchased-items li {
+            padding: 5px 0;
+            font-size: 0.95em;
+            color: #444;
+        }
+        #thank-you-modal-payment-details {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        #thank-you-modal-message {
+            font-size: 1.1em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #27ae60; 
+            font-weight: bold;
+        }
+
+
+        /* Estilos para la Sección de Inicio (Carrusel y Sobre Nosotros) */
+        .carousel-container {
+            position: relative;
+            max-width: 100%; 
+            margin: 0 auto 30px auto; 
+            overflow: hidden;
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .carousel-slide {
+            display: none; 
+            width: 100%;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: auto; 
+            max-height: 400px; 
+            object-fit: cover; 
+            display: block;
+        }
+        .carousel-slide.active {
+            display: block; 
+        }
+        .carousel-prev, .carousel-next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.3);
+        }
+        .carousel-next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .carousel-prev:hover, .carousel-next:hover {
+            background-color: rgba(0,0,0,0.6);
+        }
+        .carousel-dots {
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+        }
+        .carousel-dot {
+            cursor: pointer;
+            height: 12px;
+            width: 12px;
+            margin: 0 3px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+        .carousel-dot.active, .carousel-dot:hover {
+            background-color: white;
+        }
+
+        .about-us-section {
+            padding: 20px;
+            background-color: #ffffff; 
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex; 
+            flex-wrap: wrap; 
+            align-items: flex-start; 
+            gap: 20px; 
+        }
+        .about-us-text {
+            flex: 1 1 55%; 
+            min-width: 300px; 
+        }
+        .about-us-image-container {
+            flex: 1 1 35%; 
+            min-width: 250px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .about-us-image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .about-us-section h3 { 
+            color: #003366;
+            text-align: left; 
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            width: 100%; 
+        }
+        .about-us-section p {
+            color: #444;
+            line-height: 1.7;
+            text-align: left; 
+            font-size: 1.05em;
+        }
+
+        /* Estilos para la Sección de Checkout */
+        .checkout-container {
+            max-width: 700px; 
+        }
+        .order-summary {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #eee;
+        }
+        .order-summary h3 {
+            margin-top: 0;
+            color: #003366;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        #checkout-order-total {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+        .payment-options {
+            margin-bottom: 25px;
+        }
+        .payment-options label {
+            display: block;
+            padding: 12px 15px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .payment-options input[type="radio"] {
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .payment-options label:hover {
+            background-color: #e9e9e9;
+        }
+        .payment-options input[type="radio"]:checked + label {
+            background-color: #003366;
+            color: white;
+            border-color: #002244;
+        }
+        #credit-card-form-fields .form-group {
+            margin-bottom: 15px; 
+        }
+        .pay-now-button {
+            background-color: #27ae60; 
+            color: white;
+        }
+        .pay-now-button:hover {
+            background-color: #229954;
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 20px;
+            }
+            header h1 {
+                font-size: 1.6em;
+                margin-bottom: 15px;
+            }
+            .search-bar {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .search-bar input[type="text"] {
+                width: calc(100% - 80px); 
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+            nav li {
+                margin-left: 0;
+                margin-bottom: 10px;
+                width: 100%;
+            }
+            nav a {
+                display: block; 
+                padding: 5px 0;
+            }
+            .cart-icon-nav {
+                font-size: 1.3em;
+            }
+            .home-section-container, .login-container, .register-container, .profile-container, .products-container, .checkout-container {
+                padding: 20px;
+            }
+             .home-section-container h2, .login-container h2, .register-container h2, .profile-container h2, .products-container h2, .checkout-container h2 {
+                font-size: 1.8em;
+            }
+            .product-item h3 {
+                font-size: 1.2em;
+            }
+            .product-item .product-description {
+                font-size: 0.9em;
+            }
+            .modal-content { 
+                margin: 5% auto; 
+                width: 90%;
+            }
+            .modal-header h2 { 
+                font-size: 1.5em;
+            }
+            #cart-total {
+                font-size: 1.2em;
+            }
+            .checkout-button {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+            .carousel-slide img {
+                max-height: 250px; 
+            }
+            .about-us-section {
+                flex-direction: column; 
+            }
+            .about-us-text, .about-us-image-container {
+                flex-basis: 100%; 
+                min-width: unset; 
+                margin-bottom: 20px; 
+            }
+            .about-us-image-container {
+                order: -1; 
+            }
+            .about-us-section h3 {
+                font-size: 1.4em;
+                text-align: center; 
+            }
+            .about-us-section p {
+                font-size: 1em;
+                text-align: justify; 
+            }
+            .profile-picture-container {
+                width: 120px;
+                height: 120px;
+            }
+            #user-info-details p strong {
+                min-width: 100px;
+            }
+            .profile-actions {
+                flex-direction: column; 
+            }
+            .profile-actions .form-button {
+                width: 100%; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Tu Tienda de Repuestos</h1>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Buscar repuestos...">
+            <button id="search-button">Buscar</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" id="home-link">Inicio</a></li>
+                <li><a href="#" id="products-nav-link">Productos</a></li>
+                <li><a href="#" id="cart-icon-link" class="cart-icon-nav">🛒 <span id="cart-count">(0)</span></a></li>
+                <li id="login-link"><a href="#">Iniciar Sesión</a></li>
+                <li id="profile-link" class="hidden"><a href="#">Mi Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="home-section" class="home-section-container hidden"> 
+            <h2>Bienvenido a Tu Tienda de Repuestos</h2>
+            
+            <div class="carousel-container" id="main-carousel">
+                <div class="carousel-slide active">
+                    <img src="https://placehold.co/800x400/003366/FFFFFF?text=Repuestos+de+Calidad" alt="[Imagen de Repuestos de Calidad]">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://placehold.co/800x400/FFCC00/000000?text=Variedad+y+Stock" alt="[Imagen de Variedad y Stock de Repuestos]">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://placehold.co/800x400/DDDDDD/333333?text=Servicio+Experto" alt="[Imagen de Servicio Experto en Repuestos]">
+                </div>
+                <a class="carousel-prev" onclick="changeSlide(-1)">&#10094;</a>
+                <a class="carousel-next" onclick="changeSlide(1)">&#10095;</a>
+                <div class="carousel-dots" id="carousel-dots-container">
+                    </div>
+            </div>
+
+            <div class="about-us-section">
+                <div class="about-us-text">
+                    <h3>Sobre Nosotros</h3>
+                    <p>
+                        En <strong>Tu Tienda de Repuestos</strong>, nos dedicamos apasionadamente a ofrecerte la más amplia variedad y la mejor calidad en repuestos automotrices. Entendemos la importancia de mantener tu vehículo en óptimas condiciones, ya sea para tu seguridad, rendimiento o confort. 
+                    </p>
+                    <p>
+                        Nuestro compromiso es ser tu aliado confiable, proporcionándote desde las piezas más comunes hasta aquellas más específicas que puedas necesitar. Contamos con un extenso catálogo que abarca múltiples marcas y modelos, asegurando que encuentres exactamente lo que buscas. Nuestro equipo de expertos está siempre dispuesto a asesorarte para que tomes la mejor decisión de compra. ¡Confía en nosotros para mantener tu auto rodando como nuevo!
+                    </p>
+                </div>
+                <div class="about-us-image-container">
+                    <img src="https://placehold.co/400x300/5A9BD5/FFFFFF?text=Nuestro+Taller" alt="[Imagen Ilustrativa del Taller o Repuestos]">
+                </div>
+            </div>
+        </div>
+
+
+        <div id="products-section" class="products-container hidden"> 
+            <h2>Nuestros Productos</h2>
+            <div class="product-list">
+                </div>
+        </div>
+
+        <div id="login-section" class="login-container hidden"> 
+            <h2>Iniciar Sesión</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Correo Electrónico o Usuario:</label>
+                    <input type="text" id="login-email" name="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña:</label>
+                    <input type="password" id="login-password" name="login-password" required>
+                </div>
+                <button type="submit" class="form-button">Iniciar Sesión</button>
+                <p>¿No tienes cuenta? <a href="#" id="register-link-from-login">Regístrate</a></p>
+            </form>
+        </div>
+
+        <div id="register-section" class="register-container hidden">
+            <h2>Crear Cuenta</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Nombre:</label>
+                    <input type="text" id="register-name" name="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Correo Electrónico:</label>
+                    <input type="email" id="register-email" name="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Contraseña:</label>
+                    <input type="password" id="register-password" name="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirmar Contraseña:</label>
+                    <input type="password" id="register-confirm-password" name="register-confirm-password" required>
+                </div>
+                <button type="submit" class="form-button">Crear Cuenta</button>
+                <p>¿Ya tienes cuenta? <a href="#" id="login-link-from-register">Inicia Sesión</a></p>
+            </form>
+        </div>
+
+        <div id="profile-section" class="profile-container hidden">
+            <h2>Mi Perfil</h2>
+            <div id="profile-info-display" class="profile-info-display">
+                <div class="profile-picture-container">
+                    <img id="profile-display-picture" src="https://placehold.co/150x150/003366/FFFFFF?text=Perfil" alt="[Foto de Perfil]">
+                </div>
+                <div id="user-info-details">
+                    </div>
+            </div>
+            <form id="edit-profile-form" class="hidden">
+                <div class="form-group">
+                    <label for="edit-profile-name">Nombre:</label>
+                    <input type="text" id="edit-profile-name" name="edit-profile-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-profile-picture-url">URL de Foto de Perfil:</label>
+                    <input type="url" id="edit-profile-picture-url" name="edit-profile-picture-url" placeholder="https://ejemplo.com/imagen.jpg">
+                </div>
+                <div class="form-group">
+                    <label for="edit-profile-contact">Número de Contacto:</label>
+                    <input type="tel" id="edit-profile-contact" name="edit-profile-contact" placeholder="+56912345678">
+                </div>
+                <div class="form-group">
+                    <label for="edit-profile-new-password">Nueva Contraseña (dejar en blanco para no cambiar):</label>
+                    <input type="password" id="edit-profile-new-password" name="edit-profile-new-password">
+                </div>
+                <div class="form-group">
+                    <label for="edit-profile-confirm-password">Confirmar Nueva Contraseña:</label>
+                    <input type="password" id="edit-profile-confirm-password" name="edit-profile-confirm-password">
+                </div>
+                <button type="submit" class="form-button">Guardar Cambios</button>
+                <button type="button" id="cancel-edit-profile" class="form-button" style="background-color: #7f8c8d; margin-top:10px;">Cancelar</button>
+            </form>
+            <div class="profile-actions">
+                 <button id="edit-profile-button" class="form-button">Editar Perfil</button>
+                 <button id="logout-button" class="form-button" style="background-color: #c0392b; color: white;">Cerrar Sesión</button>
+            </div>
+        </div>
+
+        <div id="checkout-section" class="checkout-container hidden">
+            <h2>Confirmar y Pagar</h2>
+            
+            <div class="order-summary">
+                <h3>Resumen de tu Pedido</h3>
+                <div id="checkout-order-total">Total a Pagar: CLP $0</div>
+            </div>
+
+            <form id="payment-form">
+                <div class="payment-options">
+                    <h3>Selecciona tu Método de Pago</h3>
+                    <input type="radio" id="paypal-option" name="payment-method" value="paypal" checked>
+                    <label for="paypal-option">PayPal</label>
+                    
+                    <input type="radio" id="credit-card-option" name="payment-method" value="credit-card">
+                    <label for="credit-card-option">Tarjeta de Crédito/Débito</label>
+                </div>
+
+                <div id="credit-card-form-fields" class="hidden">
+                    <h4>Detalles de la Tarjeta</h4>
+                    <div class="form-group">
+                        <label for="card-name">Nombre en la Tarjeta:</label>
+                        <input type="text" id="card-name" name="card-name" placeholder="Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label for="card-number">Número de Tarjeta:</label>
+                        <input type="text" id="card-number" name="card-number" placeholder="0000 0000 0000 0000">
+                    </div>
+                    <div class="form-group" style="display: flex; gap: 10px;">
+                        <div style="flex-grow: 1;">
+                            <label for="card-expiry">Fecha de Expiración (MM/AA):</label>
+                            <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/AA">
+                        </div>
+                        <div style="flex-grow: 1;">
+                            <label for="card-cvc">CVC/CVV:</label>
+                            <input type="text" id="card-cvc" name="card-cvc" placeholder="123">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" id="pay-now-button" class="form-button pay-now-button">Pagar Ahora</button>
+            </form>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Tu Tienda de Repuestos Automotrices</p>
+    </footer>
+
+    <div id="toast-message-container" aria-live="assertive" aria-atomic="true" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 1050;">
+      </div>
+
+    <div id="cart-modal" class="modal-overlay"> <div class="modal-content"> <div class="modal-header"> <h2>Carrito de Compras</h2>
+                <span class="close-modal-button" id="close-cart-modal-button">&times;</span> </div>
+            <ul id="cart-items-list">
+                </ul>
+            <div class="cart-modal-footer">
+                <div id="cart-total">Total: CLP $0</div>
+                <button class="checkout-button" id="proceed-to-checkout-button">Proceder al Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="thank-you-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>¡Gracias por tu Compra!</h2>
+                <span class="close-modal-button" id="close-thank-you-modal-button">&times;</span>
+            </div>
+            <div id="thank-you-modal-message">Tu pedido ha sido procesado exitosamente.</div>
+            <h4>Artículos Comprados:</h4>
+            <ul id="thank-you-modal-purchased-items">
+                </ul>
+            <h4>Detalles del Pago:</h4>
+            <div id="thank-you-modal-payment-details">
+                </div>
+            <button id="thank-you-modal-continue-shopping" class="form-button" style="background-color: #003366; color:white;">Seguir Comprando</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Section Elements
+            const homeSection = document.getElementById('home-section'); 
+            const loginSection = document.getElementById('login-section');
+            const registerSection = document.getElementById('register-section');
+            const profileSection = document.getElementById('profile-section');
+            const productsSection = document.getElementById('products-section');
+            const checkoutSection = document.getElementById('checkout-section'); 
+            
+            // Navigation Links
+            const homeLink = document.getElementById('home-link');
+            const productsNavLink = document.getElementById('products-nav-link');
+            const loginHeaderLink = document.getElementById('login-link'); 
+            const profileHeaderLink = document.getElementById('profile-link'); 
+            
+            // Form Links
+            const registerLinkFromLogin = document.getElementById('register-link-from-login');
+            const loginLinkFromRegister = document.getElementById('login-link-from-register');
+            
+            // Forms
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            // User Info, Profile Display & Edit Form
+            const userInfoDetailsDiv = document.getElementById('user-info-details'); 
+            const profileDisplayPictureImg = document.getElementById('profile-display-picture');
+            const editProfileButton = document.getElementById('edit-profile-button');
+            const cancelEditProfileButton = document.getElementById('cancel-edit-profile');
+            const editProfileForm = document.getElementById('edit-profile-form');
+            const profileInfoDisplayDiv = document.getElementById('profile-info-display');
+
+
+            const productListDiv = document.querySelector('.product-list'); 
+            const cartCountSpan = document.getElementById('cart-count');
+            const logoutButton = document.getElementById('logout-button');
+
+            // Search elements
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+
+            // Toast message container
+            const toastContainer = document.getElementById('toast-message-container');
+
+            // Cart Modal Elements
+            const cartModal = document.getElementById('cart-modal');
+            const closeCartModalButton = document.getElementById('close-cart-modal-button');
+            const cartIconLink = document.getElementById('cart-icon-link'); 
+            const cartItemsList = document.getElementById('cart-items-list');
+            const cartTotalDiv = document.getElementById('cart-total');
+            const proceedToCheckoutButton = document.getElementById('proceed-to-checkout-button'); 
+
+            // Checkout Section Elements
+            const checkoutOrderTotalDiv = document.getElementById('checkout-order-total');
+            const paymentForm = document.getElementById('payment-form');
+            const creditCardFieldsDiv = document.getElementById('credit-card-form-fields');
+            const paymentMethodRadios = document.querySelectorAll('input[name="payment-method"]');
+            const payNowButton = document.getElementById('pay-now-button');
+
+            // Thank You Modal Elements
+            const thankYouModal = document.getElementById('thank-you-modal');
+            const closeThankYouModalButton = document.getElementById('close-thank-you-modal-button');
+            const thankYouModalPurchasedItemsUl = document.getElementById('thank-you-modal-purchased-items');
+            const thankYouModalPaymentDetailsDiv = document.getElementById('thank-you-modal-payment-details');
+            const thankYouModalContinueShoppingButton = document.getElementById('thank-you-modal-continue-shopping');
+
+
+            // Carousel Elements
+            const carousel = document.getElementById('main-carousel');
+            const carouselSlides = carousel.querySelectorAll('.carousel-slide');
+            const carouselDotsContainer = document.getElementById('carousel-dots-container');
+            let currentSlide = 0;
+            let slideInterval;
+
+
+            let shoppingCart = []; 
+            let allProducts = []; 
+            let lastPaymentDetails = {}; 
+
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // --- Utility to format numbers as CLP ---
+            function formatCLP(amount) {
+                return `CLP $${amount.toLocaleString('es-CL')}`;
+            }
+
+            function initCarousel() {
+                if (!carousel || carouselSlides.length === 0) return;
+                carouselSlides.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.classList.add('carousel-dot');
+                    dot.setAttribute('onclick', `showSlide(${index})`);
+                    carouselDotsContainer.appendChild(dot);
+                });
+                showSlide(currentSlide); 
+                startSlideInterval(); 
+            }
+
+            function showSlide(index) {
+                if (!carouselSlides || carouselSlides.length === 0) return;
+                carouselSlides.forEach(slide => slide.classList.remove('active'));
+                const dots = carouselDotsContainer.querySelectorAll('.carousel-dot');
+                dots.forEach(dot => dot.classList.remove('active'));
+                currentSlide = (index + carouselSlides.length) % carouselSlides.length;
+                carouselSlides[currentSlide].classList.add('active');
+                if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+            }
+
+            window.changeSlide = function(n) { 
+                showSlide(currentSlide + n);
+                resetSlideInterval(); 
+            }
+            window.showSlide = showSlide; 
+
+            function startSlideInterval() {
+                if (!carouselSlides || carouselSlides.length === 0) return;
+                slideInterval = setInterval(() => changeSlide(1), 5000); 
+            }
+
+            function resetSlideInterval() {
+                 if (!carouselSlides || carouselSlides.length === 0) return;
+                clearInterval(slideInterval);
+                startSlideInterval();
+            }
+
+            function showToast(message, duration = 3000) {
+                const toastId = 'toast-' + Date.now();
+                const toastElement = document.createElement('div');
+                toastElement.className = 'toast-message';
+                toastElement.id = toastId;
+                toastElement.textContent = message;
+                toastContainer.appendChild(toastElement);
+                toastElement.offsetHeight; 
+                toastElement.classList.add('show');
+                setTimeout(() => {
+                    toastElement.classList.remove('show');
+                    setTimeout(() => { if (toastElement.parentNode) toastContainer.removeChild(toastElement); }, 500); 
+                }, duration);
+            }
+
+            function showSection(sectionToShow) {
+                [homeSection, loginSection, registerSection, profileSection, productsSection, checkoutSection].forEach(section => { 
+                    if (section) section.classList.add('hidden');
+                });
+                if (sectionToShow) sectionToShow.classList.remove('hidden');
+            }
+
+            homeLink.addEventListener('click', (e) => { e.preventDefault(); showSection(homeSection); });
+            productsNavLink.addEventListener('click', (e) => { e.preventDefault(); showSection(productsSection); });
+            loginHeaderLink.addEventListener('click', (e) => { e.preventDefault(); showSection(loginSection); });
+            profileHeaderLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!profileHeaderLink.classList.contains('hidden')) { 
+                    displayUserProfile(); 
+                    showSection(profileSection);
+                    profileInfoDisplayDiv.classList.remove('hidden'); 
+                    editProfileForm.classList.add('hidden'); 
+                }
+            });
+            registerLinkFromLogin.addEventListener('click', (e) => { e.preventDefault(); showSection(registerSection); });
+            loginLinkFromRegister.addEventListener('click', (e) => { e.preventDefault(); showSection(loginSection); });
+            
+            function displayUserProfile() {
+                const user = JSON.parse(localStorage.getItem('loggedInUser'));
+                if (user) {
+                    profileDisplayPictureImg.src = user.profilePictureUrl || 'https://placehold.co/150x150/003366/FFFFFF?text=Perfil';
+                    profileDisplayPictureImg.alt = `[Foto de Perfil de ${user.name}]`;
+                    userInfoDetailsDiv.innerHTML = `
+                        <p><strong>Nombre:</strong> ${user.name || 'No especificado'}</p>
+                        <p><strong>Correo:</strong> ${user.email || 'No especificado'}</p>
+                        <p><strong>Contacto:</strong> ${user.contactNumber || 'No especificado'}</p>
+                    `;
+                } else { 
+                    profileDisplayPictureImg.src = 'https://placehold.co/150x150/003366/FFFFFF?text=Perfil';
+                    profileDisplayPictureImg.alt = '[Foto de Perfil]';
+                    userInfoDetailsDiv.innerHTML = '<p>No se pudo cargar la información del usuario.</p>';
+                }
+            }
+
+            editProfileButton.addEventListener('click', () => {
+                const user = JSON.parse(localStorage.getItem('loggedInUser'));
+                if (user) {
+                    document.getElementById('edit-profile-name').value = user.name || '';
+                    document.getElementById('edit-profile-picture-url').value = user.profilePictureUrl || '';
+                    document.getElementById('edit-profile-contact').value = user.contactNumber || '';
+                    document.getElementById('edit-profile-new-password').value = ''; 
+                    document.getElementById('edit-profile-confirm-password').value = '';
+                    profileInfoDisplayDiv.classList.add('hidden');
+                    editProfileForm.classList.remove('hidden');
+                    editProfileButton.classList.add('hidden'); 
+                } else {
+                    showToast('Error: No se encontró información del usuario.');
+                }
+            });
+
+            cancelEditProfileButton.addEventListener('click', () => {
+                profileInfoDisplayDiv.classList.remove('hidden');
+                editProfileForm.classList.add('hidden');
+                editProfileButton.classList.remove('hidden'); 
+            });
+
+            editProfileForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const user = JSON.parse(localStorage.getItem('loggedInUser'));
+                if (!user) { showToast('Error al guardar: Sesión no encontrada.'); return; }
+
+                const newName = document.getElementById('edit-profile-name').value.trim();
+                const newPictureUrl = document.getElementById('edit-profile-picture-url').value.trim();
+                const newContact = document.getElementById('edit-profile-contact').value.trim();
+                const newPassword = document.getElementById('edit-profile-new-password').value;
+                const confirmPassword = document.getElementById('edit-profile-confirm-password').value;
+
+                if (!newName) { showToast('El nombre no puede estar vacío.'); return; }
+
+                user.name = newName;
+                user.profilePictureUrl = newPictureUrl; 
+                user.contactNumber = newContact; 
+
+                if (newPassword) {
+                    if (newPassword !== confirmPassword) { showToast('Las nuevas contraseñas no coinciden.'); return; }
+                    user.password = newPassword; 
+                    showToast('Contraseña actualizada.');
+                }
+
+                localStorage.setItem('loggedInUser', JSON.stringify(user));
+                showToast('Perfil actualizado exitosamente.');
+                displayUserProfile(); 
+                profileInfoDisplayDiv.classList.remove('hidden');
+                editProfileForm.classList.add('hidden');
+                editProfileButton.classList.remove('hidden'); 
+            });
+            
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = loginForm.querySelector('#login-email').value;
+                if (!email) { showToast('Por favor, ingrese su correo o usuario.'); return; }
+                let users = JSON.parse(localStorage.getItem('appUsers')) || {};
+                let currentUser = Object.values(users).find(u => u.email === email);
+
+                if (!currentUser) { 
+                     console.log('Simulando login para nuevo/no encontrado usuario:', email);
+                     currentUser = { email: email, name: email.split('@')[0], profilePictureUrl: '', contactNumber: '' };
+                }
+                
+                localStorage.setItem('loggedInUser', JSON.stringify(currentUser)); 
+                updateUserUI(currentUser.name, currentUser.email); 
+                displayUserProfile(); 
+                showSection(homeSection); 
+                showToast(`Bienvenido de nuevo, ${currentUser.name}!`);
+            });
+
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = registerForm.querySelector('#register-name').value;
+                const email = registerForm.querySelector('#register-email').value;
+                const password = registerForm.querySelector('#register-password').value;
+                const confirmPassword = registerForm.querySelector('#register-confirm-password').value;
+
+                if (!name || !email || !password || !confirmPassword) { showToast('Por favor, complete todos los campos.'); return; }
+                if (password !== confirmPassword) { showToast('Las contraseñas no coinciden.'); return; }
+                
+                const newUser = { name, email, password, profilePictureUrl: '', contactNumber: '' };
+                let users = JSON.parse(localStorage.getItem('appUsers')) || {};
+                if (users[email]) { showToast('Este correo electrónico ya está registrado.'); return; }
+                users[email] = newUser;
+                localStorage.setItem('appUsers', JSON.stringify(users));
+                localStorage.setItem('loggedInUser', JSON.stringify(newUser)); 
+                updateUserUI(name, email);
+                displayUserProfile();
+                showSection(homeSection); 
+                showToast(`¡Cuenta creada exitosamente, ${name}! Bienvenido.`);
+            });
+            
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('loggedInUser');
+                updateUserUI(null, null); 
+                profileDisplayPictureImg.src = 'https://placehold.co/150x150/003366/FFFFFF?text=Perfil';
+                userInfoDetailsDiv.innerHTML = '';
+                profileInfoDisplayDiv.classList.remove('hidden'); 
+                editProfileForm.classList.add('hidden'); 
+                editProfileButton.classList.remove('hidden'); 
+                showSection(loginSection); 
+                showToast('Has cerrado sesión.');
+                shoppingCart = []; 
+                updateCartModal();
+                updateCartIconCount();
+            });
+
+            function updateUserUI(name, email) { 
+                if (name) { 
+                    loginHeaderLink.classList.add('hidden');
+                    profileHeaderLink.classList.remove('hidden');
+                } else { 
+                    loginHeaderLink.classList.remove('hidden');
+                    profileHeaderLink.classList.add('hidden');
+                }
+            }
+            
+            function checkLoginStatus() {
+                const user = JSON.parse(localStorage.getItem('loggedInUser'));
+                if (user && user.name) {
+                    updateUserUI(user.name, user.email);
+                    displayUserProfile(); 
+                } else {
+                    updateUserUI(null, null);
+                }
+                showSection(homeSection); 
+            }
+
+            // --- Product Data with CLP prices ---
+            const sampleProducts = [
+                { id: 1, nombre: 'Filtro de Aceite Pro', precio: 10000, imagen: 'https://placehold.co/250x200/003366/FFFFFF?text=Filtro+Aceite', descripcion: 'Filtro de aceite de alto rendimiento para una protección superior del motor.' },
+                { id: 2, nombre: 'Batería AutoMAX 12V', precio: 70000, imagen: 'https://placehold.co/250x200/FFCC00/000000?text=Batería', descripcion: 'Batería de coche de 12V y 60Ah, arranque confiable en todo clima.' },
+                { id: 3, nombre: 'Pastillas de Freno Cerámicas', precio: 37000, imagen: 'https://placehold.co/250x200/C0C0C0/333333?text=Pastillas+Freno', descripcion: 'Juego de pastillas de freno delanteras cerámicas para una frenada suave y silenciosa.' },
+                { id: 4, nombre: 'Neumático AllSeason X1', precio: 82000, imagen: 'https://placehold.co/250x200/333333/FFFFFF?text=Neumático', descripcion: 'Neumático 205/55R16 para todas las estaciones, excelente agarre y durabilidad.' },
+                { id: 5, nombre: 'Bujía Iridium Spark', precio: 6000, imagen: 'https://placehold.co/250x200/E0E0E0/003366?text=Bujía', descripcion: 'Bujía de encendido de iridio para una combustión eficiente y mayor vida útil.' },
+                { id: 6, nombre: 'Amortiguador UltraRide', precio: 50000, imagen: 'https://placehold.co/250x200/555555/FFFFFF?text=Amortiguador', descripcion: 'Amortiguador delantero para suspensión, confort y estabilidad mejorados.' },
+            ];
+            allProducts = [...sampleProducts]; 
+
+            function createProductHTML(producto) {
+                return `
+                    <div class="product-item" data-id="${producto.id}">
+                        <img src="${producto.imagen}" alt="${producto.nombre}" onerror="this.onerror=null;this.src='https://placehold.co/250x200/CCCCCC/B0B0B0?text=Imagen+No+Disponible';">
+                        <h3>${producto.nombre}</h3>
+                        <p class="product-description">${producto.descripcion}</p>
+                        <p class="product-price">${formatCLP(producto.precio)}</p> 
+                        <button class="add-to-cart-btn" data-product-id="${producto.id}">Agregar al Carrito</button>
+                    </div>
+                `;
+            }
+
+            function renderProducts(productsToRender) {
+                if (!productListDiv) return; 
+                productListDiv.innerHTML = ''; 
+                if (productsToRender.length === 0) {
+                    productListDiv.innerHTML = '<p style="text-align:center; grid-column: 1 / -1;">No se encontraron productos.</p>';
+                } else {
+                    productsToRender.forEach(producto => productListDiv.innerHTML += createProductHTML(producto));
+                }
+            }
+            
+            function addToCart(productId) {
+                const productToAdd = allProducts.find(p => p.id === parseInt(productId));
+                if (!productToAdd) return;
+                const existingItem = shoppingCart.find(item => item.id === productToAdd.id);
+                if (existingItem) existingItem.quantity++;
+                else shoppingCart.push({ ...productToAdd, quantity: 1 });
+                updateCartModal();
+                updateCartIconCount();
+                showToast(`"${productToAdd.nombre}" agregado al carrito.`);
+            }
+
+            function removeFromCart(productId) {
+                shoppingCart = shoppingCart.filter(item => item.id !== parseInt(productId));
+                updateCartModal();
+                updateCartIconCount();
+                const removedProduct = allProducts.find(p => p.id === parseInt(productId));
+                if (removedProduct) showToast(`"${removedProduct.nombre}" eliminado del carrito.`);
+            }
+            
+            function updateCartModal() {
+                cartItemsList.innerHTML = ''; 
+                let total = 0;
+                if (shoppingCart.length === 0) {
+                    cartItemsList.innerHTML = '<li class="empty-cart-message">Tu carrito está vacío.</li>';
+                    proceedToCheckoutButton.disabled = true; 
+                    proceedToCheckoutButton.style.opacity = '0.6';
+                } else {
+                    shoppingCart.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `
+                            <div class="cart-item-details">
+                                <span class="cart-item-name">${item.nombre}</span>
+                                <span class="cart-item-price">${formatCLP(item.precio)} x ${item.quantity}</span>
+                            </div>
+                            <div class="cart-item-actions">
+                                <button class="remove-from-cart-btn" data-product-id="${item.id}">Eliminar</button>
+                            </div>
+                        `;
+                        cartItemsList.appendChild(listItem);
+                        total += item.precio * item.quantity;
+                    });
+                    proceedToCheckoutButton.disabled = false; 
+                    proceedToCheckoutButton.style.opacity = '1';
+                }
+                cartTotalDiv.textContent = `Total: ${formatCLP(total)}`;
+            }
+
+            function updateCartIconCount() {
+                const totalItems = shoppingCart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountSpan.textContent = `(${totalItems})`;
+            }
+
+            cartItemsList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-from-cart-btn')) removeFromCart(e.target.dataset.productId);
+            });
+
+            if(productListDiv) productListDiv.addEventListener('click', (e) => {
+                if (e.target.classList.contains('add-to-cart-btn')) addToCart(e.target.dataset.productId);
+            });
+
+            cartIconLink.addEventListener('click', (e) => { e.preventDefault(); updateCartModal(); cartModal.style.display = 'block'; });
+            closeCartModalButton.addEventListener('click', () => cartModal.style.display = 'none');
+            window.addEventListener('click', (event) => { if (event.target == cartModal) cartModal.style.display = 'none'; });
+            
+            // --- Checkout Functionality ---
+            proceedToCheckoutButton.addEventListener('click', () => {
+                if(shoppingCart.length > 0) {
+                    const totalAmount = shoppingCart.reduce((sum, item) => sum + (item.precio * item.quantity), 0);
+                    checkoutOrderTotalDiv.textContent = `Total a Pagar: ${formatCLP(totalAmount)}`;
+                    cartModal.style.display = 'none'; 
+                    showSection(checkoutSection); 
+                    document.getElementById('paypal-option').checked = true;
+                    creditCardFieldsDiv.classList.add('hidden');
+                } else {
+                    showToast('Tu carrito está vacío. Agrega productos antes de pagar.');
+                }
+            });
+
+            paymentMethodRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'credit-card') {
+                        creditCardFieldsDiv.classList.remove('hidden');
+                    } else {
+                        creditCardFieldsDiv.classList.add('hidden');
+                    }
+                });
+            });
+
+            paymentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const selectedPaymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+                
+                lastPaymentDetails = { 
+                    method: selectedPaymentMethod,
+                    total: checkoutOrderTotalDiv.textContent, // This will be already formatted
+                    items: [...shoppingCart] 
+                };
+
+                if (selectedPaymentMethod === 'credit-card') {
+                    const cardName = document.getElementById('card-name').value;
+                    const cardNumber = document.getElementById('card-number').value;
+                    const cardExpiry = document.getElementById('card-expiry').value;
+                    const cardCvc = document.getElementById('card-cvc').value;
+
+                    if (!cardName || !cardNumber || !cardExpiry || !cardCvc) {
+                        showToast('Por favor, complete todos los campos de la tarjeta de crédito.');
+                        return;
+                    }
+                    if (cardNumber.replace(/\s/g, '').length < 15 || cardNumber.replace(/\s/g, '').length > 16) {
+                        showToast('Número de tarjeta inválido.'); return;
+                    }
+                     if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) {
+                        showToast('Formato de fecha de expiración inválido (MM/AA).'); return;
+                    }
+                    if (!/^\d{3,4}$/.test(cardCvc)) {
+                        showToast('CVC/CVV inválido.'); return;
+                    }
+                    lastPaymentDetails.cardInfo = `Tarjeta terminada en **** ${cardNumber.slice(-4)}`;
+                }
+                
+                showToast('Procesando pago... (simulación)');
+                
+                setTimeout(() => {
+                    thankYouModalPurchasedItemsUl.innerHTML = '';
+                    lastPaymentDetails.items.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = `${item.nombre} (x${item.quantity}) - ${formatCLP(item.precio * item.quantity)}`;
+                        thankYouModalPurchasedItemsUl.appendChild(li);
+                    });
+                    let paymentInfoText = `Método: ${lastPaymentDetails.method}`;
+                    if(lastPaymentDetails.cardInfo) {
+                        paymentInfoText += `, ${lastPaymentDetails.cardInfo}`;
+                    }
+                    paymentInfoText += `<br>Total Pagado: ${lastPaymentDetails.total}`;
+                    thankYouModalPaymentDetailsDiv.innerHTML = paymentInfoText;
+                    
+                    thankYouModal.style.display = 'block';
+                    showSection(homeSection); 
+                }, 1500); 
+            });
+
+            closeThankYouModalButton.addEventListener('click', () => {
+                thankYouModal.style.display = 'none';
+                shoppingCart = []; 
+                updateCartModal();
+                updateCartIconCount();
+                showSection(homeSection); 
+            });
+            thankYouModalContinueShoppingButton.addEventListener('click', () => {
+                thankYouModal.style.display = 'none';
+                shoppingCart = []; 
+                updateCartModal();
+                updateCartIconCount();
+                showSection(homeSection); 
+            });
+
+
+            function handleSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                if (searchTerm === "") {
+                    if (!productsSection.classList.contains('hidden')) renderProducts(allProducts);
+                    return;
+                }
+                const filteredProducts = allProducts.filter(p => p.nombre.toLowerCase().includes(searchTerm) || p.descripcion.toLowerCase().includes(searchTerm));
+                showSection(productsSection); 
+                renderProducts(filteredProducts);
+            }
+
+            searchButton.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keyup', (event) => { if (event.key === 'Enter') handleSearch(); });
+
+            initCarousel(); 
+            renderProducts(allProducts); 
+            checkLoginStatus(); 
+            updateCartIconCount(); 
+            updateCartModal(); 
+        });
+    </script>
+
+</body>
+</html>
