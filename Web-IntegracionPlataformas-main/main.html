@@ -757,7 +757,7 @@
 <body>
 
     <header>
-        <h1>Tu Tienda de Repuestos</h1>
+        <h1>Autoparts</h1>
         <div class="search-bar">
             <input type="text" id="search-input" placeholder="Buscar repuestos...">
             <button id="search-button">Buscar</button>
@@ -797,7 +797,7 @@
                 <div class="about-us-text">
                     <h3>Sobre Nosotros</h3>
                     <p>
-                        En <strong>Tu Tienda de Repuestos</strong>, nos dedicamos apasionadamente a ofrecerte la más amplia variedad y la mejor calidad en repuestos automotrices. Entendemos la importancia de mantener tu vehículo en óptimas condiciones, ya sea para tu seguridad, rendimiento o confort. 
+                        En <strong>Autoparts</strong>, nos dedicamos apasionadamente a ofrecerte la más amplia variedad y la mejor calidad en repuestos automotrices. Entendemos la importancia de mantener tu vehículo en óptimas condiciones, ya sea para tu seguridad, rendimiento o confort. 
                     </p>
                     <p>
                         Nuestro compromiso es ser tu aliado confiable, proporcionándote desde las piezas más comunes hasta aquellas más específicas que puedas necesitar. Contamos con un extenso catálogo que abarca múltiples marcas y modelos, asegurando que encuentres exactamente lo que buscas. Nuestro equipo de expertos está siempre dispuesto a asesorarte para que tomes la mejor decisión de compra. ¡Confía en nosotros para mantener tu auto rodando como nuevo!
@@ -812,7 +812,12 @@
 
         <div id="products-section" class="products-container hidden"> 
             <h2>Nuestros Productos</h2>
+            <select id="user-type" class="user-type">
+                <option value="b2c">Cliente Final</option>
+                <option value="b2b">Distribuidor / Taller</option>
+              </select>
             <div class="product-list">
+                
                 </div>
         </div>
 
@@ -1287,12 +1292,12 @@
 
             // --- Product Data with CLP prices ---
             const sampleProducts = [
-                { id: 1, nombre: 'Filtro de Aceite Pro', precio: 10000, imagen: 'https://placehold.co/250x200/003366/FFFFFF?text=Filtro+Aceite', descripcion: 'Filtro de aceite de alto rendimiento para una protección superior del motor.' },
-                { id: 2, nombre: 'Batería AutoMAX 12V', precio: 70000, imagen: 'https://placehold.co/250x200/FFCC00/000000?text=Batería', descripcion: 'Batería de coche de 12V y 60Ah, arranque confiable en todo clima.' },
-                { id: 3, nombre: 'Pastillas de Freno Cerámicas', precio: 37000, imagen: 'https://placehold.co/250x200/C0C0C0/333333?text=Pastillas+Freno', descripcion: 'Juego de pastillas de freno delanteras cerámicas para una frenada suave y silenciosa.' },
-                { id: 4, nombre: 'Neumático AllSeason X1', precio: 82000, imagen: 'https://placehold.co/250x200/333333/FFFFFF?text=Neumático', descripcion: 'Neumático 205/55R16 para todas las estaciones, excelente agarre y durabilidad.' },
-                { id: 5, nombre: 'Bujía Iridium Spark', precio: 6000, imagen: 'https://placehold.co/250x200/E0E0E0/003366?text=Bujía', descripcion: 'Bujía de encendido de iridio para una combustión eficiente y mayor vida útil.' },
-                { id: 6, nombre: 'Amortiguador UltraRide', precio: 50000, imagen: 'https://placehold.co/250x200/555555/FFFFFF?text=Amortiguador', descripcion: 'Amortiguador delantero para suspensión, confort y estabilidad mejorados.' },
+                { id: 1, nombre: 'Filtro de Aceite Pro', precio: 10000, imagen: 'https://kstore.cl/cdn/shop/files/PF-303B.jpg?v=1689974042', descripcion: 'Filtro de aceite de alto rendimiento para una protección superior del motor.' },
+                { id: 2, nombre: 'Batería AutoMAX 12V', precio: 70000, imagen: 'https://http2.mlstatic.com/D_NQ_NP_657225-MLC74651333551_022024-O-bateria-auto-para-mazda-bt50-22-2013-2019-korea-90amp.webp', descripcion: 'Batería de coche de 12V y 60Ah, arranque confiable en todo clima.' },
+                { id: 3, nombre: 'Pastillas de Freno Cerámicas', precio: 37000, imagen: 'https://www.wagnerbrake.com/content/dam/marketing/North-America/wagner/product-brake-landing/Wagner_BrakeLanding_Product-Thumbnail_380x260_QS.png', descripcion: 'Juego de pastillas de freno delanteras cerámicas para una frenada suave y silenciosa.' },
+                { id: 4, nombre: 'Neumático AllSeason X1', precio: 82000, imagen: 'https://store.subaru.cl/wp-content/uploads/2021/11/17647005.jpg', descripcion: 'Neumático 205/55R16 para todas las estaciones, excelente agarre y durabilidad.' },
+                { id: 5, nombre: 'Bujía Iridium Spark', precio: 6000, imagen: 'https://www.garageonline.cl/10927-medium_default/bujia-de-iridio-cr10eix-ngk.jpg', descripcion: 'Bujía de encendido de iridio para una combustión eficiente y mayor vida útil.' },
+                { id: 6, nombre: 'Amortiguador UltraRide', precio: 50000, imagen: 'https://assets.altaventa.cl/sherpa/3a0ee9e1-1b9b-11ee-a065-3908f802058d.jpg', descripcion: 'Amortiguador delantero para suspensión, confort y estabilidad mejorados.' },
             ];
             allProducts = [...sampleProducts]; 
 
