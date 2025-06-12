@@ -62,7 +62,7 @@ if ($sql->fetchColumn() > 0) {
       <div class="collapse navbar-collapse" id="navbarHeader">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-              <a href="#" class="nav-link active">Catálogo</a>
+              <a href="index.php" class="nav-link active">Catálogo</a>
           </li>
         </ul>
       </div>
