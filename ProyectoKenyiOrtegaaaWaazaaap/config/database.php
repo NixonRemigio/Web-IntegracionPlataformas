@@ -5,7 +5,7 @@ class Database {
     private $hostname = "localhost";
     private $database = "autoparte";
     private $username = "root";
-    private $password = "Ni021003R-";
+    private $password = "";
     private $charset = "utf8";
 
     function conectar()
